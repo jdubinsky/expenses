@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Expenses</h1>
+
+<table>
+    <tr>
+        <th>Lender</th>
+        <th>Lendee</th>
+        <th>Amount</th>
+        <th>Reason</th>
+    </tr>
+    {% for expenses in object_list %}
+        <tr>
+            <td>{{ expenses.lender }}</td>
+            <td>{{ expenses.lendee }}</td>
+            <td>${{ expenses.amount }}</td>
+            <td>{{ expenses.reason }}</td>
+            <td>{{ expenses.timestamp }}</td>
+            <td>(<a href="{% url "expenses-edit-expense" pk=expenses.id %}">edit</a>)</td>
+        </tr>
+    {% endfor %}
+</table>
+<a href="{% url "expenses-new-expense" %}">add expense</a>
+<br>
+<a href="{% url "users-new-user" %}">add user</a>
+
+{% endblock %}
