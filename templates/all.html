@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ username }}'s Expenses</h1>
+{% if expenses %}
+<table style="width:100%">
+	<tr>
+		<th>Second Party</th>
+		<th>Amount</th>
+		<th>Reason</th>
+		<th>Opened Door</th>
+		<th>Date</th>
+	</tr>
+{% for entry in expenses %}
+<tr>
+	<td>{{ entry.username }}</td>
+	<td>{{ entry.amount }}</td>
+	<td>{{ entry.reason }}</td>
+	<td>{{ entry.opened }}</td>
+	<td>{{ entry.date }}</td>
+{% endfor %}
+</table>
+{% else %}
+<span>Nothing to see here!</span>
+{% endif %}
+
+
+{% endblock %}

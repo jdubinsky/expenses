@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Login</h2>
+  {% with message = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{message}}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+  {% endwith %}
+  {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+    <form action="{{ url_for('login') }}" method="post">
+	<dl>
+		<dt>Username:
+		<dd><input type="text" name="username">
+		<dt>Password:
+		<dd><input type="password" name="password">
+		<dd><input type="submit" value="Login">
+	</dl>
+</form>
+<a href="{{ url_for('user') }}">Create new user</a>
+
+{% endblock %}

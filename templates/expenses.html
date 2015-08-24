@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ username }}'s Total</h1>
+<ul class=entries>
+{% for entry in totals %}
+<li>{{ entry.username }} {{ entry.amount }} {{ entry.opened }}</li>
+{% else %}
+<span>Nothing to see here!</span>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

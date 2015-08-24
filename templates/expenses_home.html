@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Expenses</h1>
+
+<table>
+    <tr>
+        <td>
+        {{ total_msg }}
+        </td>
+    </tr>
+    <tr>
+        <td>{{ user_1 }} total: </td>
+        <td>{{ total_1 }}</td>
+    </tr>
+    <tr>
+        <td>{{ user_2 }} total: </td>
+        <td>{{ total_2 }}</td>
+    </tr>
+</table>
+<a href="{% url "expenses-new-expense" %}">add expense</a>
+<br>
+<a href="{% url "expenses-list-expenses" %}">expenses list</a>
+<br>
+<a href="{% url "users-new-user" %}">add user</a>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Add new expense</h2>
+  {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+    <form action="{{ url_for('add_expense') }}" method="post">
+       <span>I </span>	    
+	<select id="expense_method" name="expense_method">
+		<option value="lessor">loaned money to</option>
+		<option value="lessee">was loaned money by</option>
+	</select>
+	<span>  </span>
+	<select id="expense_user" name="expense_user">
+	{% for user in users %}
+		<option value={{ user }}>{{ user }}</option>
+	{% endfor %}
+	</select>
+	<br>
+	<span>Who answered the door? </span>
+	<input type="checkbox" name="i_opened">I did 
+	<input type="checkbox" name="they_opened">They did
+	<br>
+	<dl>
+		<dt>Amount:
+		<dd><input type="text" name="amount">
+		<dt>Reason:
+		<dd><input type="text" name="reason">
+
+
+		<dd><input type="submit" value="Submit">
+	</dl>
+</form>
+
+{% endblock %}
