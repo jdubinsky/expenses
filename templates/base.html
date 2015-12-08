@@ -21,6 +21,9 @@
 					<li class="active"><a href="/login">Login</a></li>
 					<li class="active"><a href="/logout">Logout</a></li>
 				</ul>
+				{% if username %}
+					<p class="navbar-text">Logged in as {{ username }}</p> 
+				{% endif %}
 			</div>
 		</div>
 	</div>

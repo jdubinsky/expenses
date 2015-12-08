@@ -9,12 +9,9 @@ CREATE TABLE Expenses (
 	timestamp INTEGER,
 	pair_id INTEGER,
 	lessor_id INTEGER, 
-	-- lessee_id INTEGER, 
-	amount_dollars INTEGER, 
-	amount_cents INTEGER,
+	amount DECIMAL(10, 2),
 	reason TEXT,
 	FOREIGN KEY(lessor_id) REFERENCES Users(id),
-	-- FOREIGN KEY(lessee_id) REFERENCES USERS(id)
 	FOREIGN KEY(pair_id) REFERENCES UserPair(id)
 );
 
@@ -29,14 +26,11 @@ Create Table Opened (
 Create Table RunningTotal (
 	id INTEGER PRIMARY KEY ASC,
 	pair_id INTEGER,
-	-- primary_user_id INTEGER,
-	-- secondary_user_id INTEGER,
-	total_dollars INTEGER,
-	total_cents INTEGER,
+	debtor_id INTEGER,
+	amount DECIMAL(10, 2),
 	last_opened_id INTEGER,
-	-- FOREIGN KEY(primary_user_id) REFERENCES Users(id),
-	-- FOREIGN KEY(secondary_user_id) REFERENCES Users(id),
-	FOREIGN KEY(last_opened_id) REFERENCES Opened(id)
+	FOREIGN KEY(debtor_id) REFERENCES Users(id),
+	FOREIGN KEY(last_opened_id) REFERENCES Opened(id),
 	FOREIGN KEY(pair_id) REFERENCES UserPair(id)
 );
 
@@ -48,3 +42,6 @@ Create Table UserPair (
 	FOREIGN KEY(user2) REFERENCES Users(id),
 	UNIQUE(user1, user2)
 );
+
+CREATE INDEX idx_pair on Expenses (pair_id);
+CREATE INDEX idx_expense on Opened (expense_id);

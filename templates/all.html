@@ -14,16 +14,27 @@
 	</tr>
 {% for entry in expenses %}
 <tr>
-	<td>{{ entry.username }}</td>
-	<td>{{ entry.amount }}</td>
-	<td>{{ entry.reason }}</td>
-	<td>{{ entry.opened }}</td>
-	<td>{{ entry.date }}</td>
+	{% if entry.in_debt %}
+		<td>{{ entry.username }} loaned you</td>
+		<td>{{ entry.amount }}</td>
+		<td>{{ entry.reason }}</td>
+		<td>{{ entry.opened }}</td>
+		<td>{{ entry.date }}</td>
+		<td><a href="{{ url_for('delete_expense', expense_id=entry.expense_id) }}">delete</a></td>
+
+	{% else %}
+		<td>You loaned {{ entry.username }}</td>
+		<td>{{ entry.amount }}</td>
+		<td>{{ entry.reason }}</td>
+		<td>{{ entry.opened }}</td>
+		<td>{{ entry.date }}</td>
+		<td><a href="{{ url_for('delete_expense', expense_id=entry.expense_id) }}">delete</a></td>
+
+	{% endif %}
 {% endfor %}
 </table>
 {% else %}
 <span>Nothing to see here!</span>
 {% endif %}
-
 
 {% endblock %}

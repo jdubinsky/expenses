@@ -4,12 +4,17 @@
 
 <h1>{{ username }}'s Total</h1>
 <ul class=entries>
-{% for entry in totals %}
-<li>{{ entry.username }} {{ entry.amount }} {{ entry.opened }}</li>
+{% for second_user, entry in totals.items() %}
+    {% if entry.in_debt %}
+    	<li>I owe {{ second_user }} ${{ entry.amount }}. {{ entry.opened }} opened the door last.</li>
+    {% else %}
+        <li>{{ second_user }} owes me ${{ entry.amount }}. {{ entry.opened }} opened the door last.</li>
+    {% endif %}
 {% else %}
 <span>Nothing to see here!</span>
 {% endfor %}
 </ul>
 
+<a href="{{ url_for('change_password') }}">Change password</a>
 
 {% endblock %}
