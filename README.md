@@ -15,5 +15,5 @@ Features:
 
 TODO:
 * Improve UI
-* Notify second party of delted expense
+* Notify second party of deleted expense
 * Paginated view of expenses
