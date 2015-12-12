@@ -11,6 +11,7 @@ import time
 from datetime import datetime, timedelta
 import calendar
 import pytz
+from simpleeval import simple_eval
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -312,8 +313,11 @@ def add_expense():
     if not logged_in:
         return render_template('login.html', error="You are not logged in!")
 
+    msg = None
+
     if request.method == 'POST':
         amount = request.form.get("amount", None)
+        amount = simple_eval(amount)
         my_username = session["username"]
         my_id = get_user_id(my_username)
         second_username = request.form.get("expense_user", None)
@@ -366,12 +370,11 @@ def add_expense():
             db.commit()
 
         update_running_total(pair_id, debtor_id, amount, opened_id)
-
-        flash("Expense added!")
+        msg = "Added expense!"
 
     users = get_all_users()
 
-    return render_template('new.html', users=users, username=session["username"])
+    return render_template('new.html', users=users, username=session["username"], msg=msg)
 
 @app.route("/user", methods=['GET', 'POST'])
 def user():
@@ -647,6 +650,8 @@ def update_password(password):
 
 if __name__ == "__main__":
     handler = logging.FileHandler(app.config['LOG_FILE'])
+    fmtr = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(fmtr)
     handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
     app.logger.debug("TEST")
