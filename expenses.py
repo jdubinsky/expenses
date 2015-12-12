@@ -578,16 +578,11 @@ def validate_login(username, password):
 def hash_password(password):
     """
     Basic hash of password in md5
+    Use salt from config
     """
     password = password.encode('utf-8')
-    #salt = uuid.uuid4().hex
-    #hashed_password = hashlib.sha512(password.encode('utf-8') + salt.encode('utf-8')).hexdigest()
-    #hashed = hashlib.sha512(password + salt).hexdigest()
-
-    m = hashlib.md5()
-    m.update(password)
-    hashed = m.hexdigest()
-    return hashed
+    salt = app.config['SECRET_KEY']
+    return hashlib.md5(salt + password).hexdigest()
 
 def user_exists(username):
     """
@@ -654,6 +649,6 @@ if __name__ == "__main__":
     handler.setFormatter(fmtr)
     handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
-    app.logger.debug("TEST")
+    app.logger.debug("Starting up")
     app.debug = True
     app.run(host=app.config['HOST'], port=app.config['PORT'])
