@@ -4,6 +4,7 @@
 
 <h2>Add new expense</h2>
   {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+  {% if msg %}<p>{{ msg }}{% endif %}
     <form action="{{ url_for('add_expense') }}" method="post">
        <span>I </span>	    
 	<select id="expense_method" name="expense_method">
